@@ -14,6 +14,7 @@ class MarkovChain {
      * @memberOf MarkovChain
      */
     constructor(seed) {
+        this.limit = 100
         if (!seed) {
             throw new Error('The MarkovChain class cannot be instantiated without a seed')
         }
@@ -108,7 +109,7 @@ class MarkovChain {
      * @memberOf MarkovChain
      */
     generate(firstWord, limit) {
-        limit = limit || this.config.limit
+        limit = limit || this.limit
         const punctuation = ['.', '?', '!']
         const chain = []
 
