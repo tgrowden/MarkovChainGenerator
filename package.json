@@ -1,0 +1,23 @@
+{
+  "name": "markov-chain-generator",
+  "version": "0.0.1",
+  "description": "A simple Javascript class for generating Markov Chains",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgrowden/MarkovChainGenerator.git"
+  },
+  "keywords": [
+    "Markov",
+    "Chain"
+  ],
+  "author": "Taylor Growden",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tgrowden/MarkovChainGenerator/issues"
+  },
+  "homepage": "https://github.com/tgrowden/MarkovChainGenerator#readme"
+}
