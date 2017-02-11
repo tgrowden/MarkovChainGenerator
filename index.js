@@ -10,12 +10,10 @@ class MarkovChain {
      * Creates an instance of MarkovChain.
      * 
      * @param {String} seed
-     * @param {Object} config
      * 
      * @memberOf MarkovChain
      */
-    constructor(seed, config) {
-        this.config = Object.assign(this.defaultConfig, config)
+    constructor(seed) {
         if (!seed) {
             throw new Error('The MarkovChain class cannot be instantiated without a seed')
         }
@@ -23,49 +21,30 @@ class MarkovChain {
     }
 
     /**
-     * Default Config
+     * Creates a probability array for a given word
      * 
-     * @readonly
+     * @param {String} word The word for which the probability array is to be created
+     * @returns {Array} The array of possible next words
      * 
      * @memberOf MarkovChain
      */
-    get defaultConfig() {
-        const defaultConfig = {
-            limit: 20
+    _probabilityArray(word) {
+        if (typeof word === 'undefined' || word === false || word === null) {
+            return false
         }
-
-        return defaultConfig
-    }
-
-    /**
-     * Generates a probability matrix from the seed
-     * 
-     * @readonly
-     * 
-     * @memberOf MarkovChain
-     */
-    get probabilityMatrix() {
-        const unordered = {}
+        word = word.toLowerCase()
         const list = this.wordList
-        let word = ''
-        for (let index in list) {
-            word = list[index].toLowerCase()
-            unordered[word] = unordered[word] || []
-            let idx = list.indexOf(word)
+        const res = []
 
-            while (idx !== -1) {
-                if (list[idx + 1]) {
-                    unordered[word].push((list[idx + 1].toLowerCase()))
-                }
-                idx = list.indexOf(word, idx + 1)
+        let idx = list.indexOf(word)
+        while (idx !== -1) {
+            if (list[idx + 1]) {
+                res.push(list[idx + 1])
             }
+            idx = list.indexOf(word, idx + 1)
         }
-        const result = {}
-        Object.keys(unordered).sort().forEach(key => {
-            result[key] = unordered[key]
-        })
 
-        return result
+        return res
     }
 
     /**
@@ -103,9 +82,8 @@ class MarkovChain {
         if (!word) {
             return false
         }
-        const matrix = this.probabilityMatrix
-        word = word.toLowerCase()
-        return matrix[word] && matrix[word] !== [] ? matrix[word][Math.floor(matrix[word].length * Math.random())] : false
+        const probabilityArray = this._probabilityArray(word)
+        return probabilityArray[Math.floor(probabilityArray.length * Math.random())]
     }
 
     /**
