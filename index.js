@@ -10,33 +10,15 @@ class MarkovChain {
      * Creates an instance of MarkovChain.
      * 
      * @param {String} seed
-     * @param {Object} config
      * 
      * @memberOf MarkovChain
      */
-    constructor(seed, config) {
-        this.config = Object.assign(this.defaultConfig, config)
+    constructor(seed) {
         if (!seed) {
             throw new Error('The MarkovChain class cannot be instantiated without a seed')
         }
         this.seed = seed
     }
-
-    /**
-     * Default Config
-     * 
-     * @readonly
-     * 
-     * @memberOf MarkovChain
-     */
-    get defaultConfig() {
-        const defaultConfig = {
-            limit: 20
-        }
-
-        return defaultConfig
-    }
-
 
     /**
      * Creates a probability array for a given word
