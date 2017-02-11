@@ -37,35 +37,32 @@ class MarkovChain {
         return defaultConfig
     }
 
+
     /**
-     * Generates a probability matrix from the seed
+     * Creates a probability array for a given word
      * 
-     * @readonly
+     * @param {String} word The word for which the probability array is to be created
+     * @returns {Array} The array of possible next words
      * 
      * @memberOf MarkovChain
      */
-    get probabilityMatrix() {
-        const unordered = {}
-        const list = this.wordList
-        let word = ''
-        for (let index in list) {
-            word = list[index].toLowerCase()
-            unordered[word] = unordered[word] || []
-            let idx = list.indexOf(word)
-
-            while (idx !== -1) {
-                if (list[idx + 1]) {
-                    unordered[word].push((list[idx + 1].toLowerCase()))
-                }
-                idx = list.indexOf(word, idx + 1)
-            }
+    _probabilityArray(word) {
+        if (typeof word === 'undefined' || word === false || word === null) {
+            return false
         }
-        const result = {}
-        Object.keys(unordered).sort().forEach(key => {
-            result[key] = unordered[key]
-        })
+        word = word.toLowerCase()
+        const list = this.wordList
+        const res = []
 
-        return result
+        let idx = list.indexOf(word)
+        while (idx !== -1) {
+            if (list[idx + 1]) {
+                res.push(list[idx + 1])
+            }
+            idx = list.indexOf(word, idx + 1)
+        }
+
+        return res
     }
 
     /**
@@ -103,9 +100,8 @@ class MarkovChain {
         if (!word) {
             return false
         }
-        const matrix = this.probabilityMatrix
-        word = word.toLowerCase()
-        return matrix[word] && matrix[word] !== [] ? matrix[word][Math.floor(matrix[word].length * Math.random())] : false
+        const probabilityArray = this._probabilityArray(word)
+        return probabilityArray[Math.floor(probabilityArray.length * Math.random())]
     }
 
     /**
