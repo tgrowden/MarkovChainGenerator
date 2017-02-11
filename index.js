@@ -125,7 +125,7 @@ class MarkovChain {
                 nextWord = this._ucfirst(nextWord)
             }
             chain.push(nextWord)
-            if (chain.length <= limit) {
+            if (chain.length < limit) {
                 nextWord = this._getNextWord(nextWord)
             } else {
                 nextWord = false
