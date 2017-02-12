@@ -1,4 +1,4 @@
-Friends, delegates and fellow Americans: I humbly and gratefully accept your nomination for the presidency of the United States.
+const TheDonald = `Friends, delegates and fellow Americans: I humbly and gratefully accept your nomination for the presidency of the United States.
 
 Together, we will lead our party back to the White House, and we will lead our country back to safety, prosperity, and peace. We will be a country of generosity and warmth. But we will also be a country of law and order.
 
@@ -205,4 +205,6 @@ We Will Make America Safe Again.
 
 And We Will Make America Great Again.
 
-THANK YOU.
+THANK YOU.`
+
+module.exports = TheDonald
