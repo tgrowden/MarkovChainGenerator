@@ -1,6 +1,6 @@
 {
   "name": "markov-chain-generator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A simple Javascript class for generating Markov Chains",
   "main": "index.js",
   "scripts": {
@@ -23,9 +23,6 @@
     "url": "https://github.com/tgrowden/MarkovChainGenerator/issues"
   },
   "homepage": "https://github.com/tgrowden/MarkovChainGenerator#readme",
-  "dependencies": {
-    "fs": "0.0.1-security"
-  },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.15.0",
