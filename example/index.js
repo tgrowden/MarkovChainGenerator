@@ -1,9 +1,8 @@
 'use strict'
 
 const MarkovChain = require('../index')
-const fs = require('fs')
-const seed = fs.readFileSync(__dirname + '/donald.txt', 'utf8')
+const TheDonald = require('./TheDonald')
 
-const TheDonald = new MarkovChain(seed)
+const markovChain = new MarkovChain(TheDonald)
 
-console.log(TheDonald.generate(null, 20)) //eslint-disable-line
+console.log(markovChain.generate(null, 20)) //eslint-disable-line
