@@ -21,7 +21,7 @@ class MarkovChain {
             throw new Error('The MarkovChain class cannot be instantiated without a seed')
         }
         this.tokenizer = Tokenizer
-        this.seed = this.tokenizer.normalize(seed)
+        this.seed = this.tokenizer.sanitize(seed)
     }
 
     /**
