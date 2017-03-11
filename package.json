@@ -1,6 +1,9 @@
 {
   "name": "markov-chain-generator",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "description": "A simple Javascript class for generating Markov Chains",
   "main": "./src/MarkovChain/index.js",
   "scripts": {
