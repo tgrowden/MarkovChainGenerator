@@ -2,7 +2,7 @@
   "name": "markov-chain-generator",
   "version": "0.1.0",
   "description": "A simple Javascript class for generating Markov Chains",
-  "main": "index.js",
+  "main": "./src/MarkovChain/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/*",
     "lint": "eslint .",

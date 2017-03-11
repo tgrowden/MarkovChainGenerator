@@ -1,6 +1,6 @@
 'use strict'
 
-const MarkovChain = require('../index')
+const MarkovChain = require('../src/MarkovChain')
 const TheDonald = require('./TheDonald')
 
 const markovChain = new MarkovChain(TheDonald)
