@@ -2,8 +2,8 @@
 'use strict'
 
 const chai  = require('chai')
-const MarkovChain = require('../index')
-const GettysburgAddress = require('./seed')
+const MarkovChain = require('../src/MarkovChain')
+const { GettysburgAddress } = require('../seeds')
 
 const markovChain = new MarkovChain(GettysburgAddress)
 
