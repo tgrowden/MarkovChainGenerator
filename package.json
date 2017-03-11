@@ -15,7 +15,11 @@
   },
   "keywords": [
     "Markov",
-    "Chain"
+    "markov-chain",
+    "markov chain",
+    "markovify",
+    "predictive text",
+    "nlp"
   ],
   "author": "Taylor Growden",
   "license": "MIT",
