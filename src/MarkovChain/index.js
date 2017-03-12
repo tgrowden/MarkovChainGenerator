@@ -1,5 +1,7 @@
 'use strict'
 
+const Tokenizer = require('../Tokenizer')
+
 /**
  * 
  * 
@@ -18,7 +20,8 @@ class MarkovChain {
         if (!seed) {
             throw new Error('The MarkovChain class cannot be instantiated without a seed')
         }
-        this.seed = seed
+        this.tokenizer = Tokenizer
+        this.seed = this.tokenizer.sanitize(seed)
     }
 
     /**
@@ -33,7 +36,6 @@ class MarkovChain {
         if (typeof word === 'undefined' || word === false || word === null) {
             return false
         }
-        word = word.toLowerCase()
         const list = this.wordList
         const res = []
 
@@ -56,19 +58,29 @@ class MarkovChain {
      * @memberOf MarkovChain
      */
     get wordList() {
-        return this.seed.replace(/(\r\n|\n|\r)/gm, ' ').toLowerCase().split(' ')
+        return this.tokenizer.tokenize(this.seed)
     }
 
     /**
      * Gets a random word
      * 
+     * @param {any} strict If === false, return the first token. Otherwise, return an uppercase word
      * @returns {String} A random word from the word list
      * 
      * @memberOf MarkovChain
      */
-    _getRandomWord() {
+    _getRandomWord(strict) {
         const list = this.wordList
-        return list[Math.floor(list.length * Math.random())].toLowerCase()
+        let word = list[Math.floor(list.length * Math.random())]
+
+        if (strict !== false) {
+            let pattern = /[A-Z]/
+            while (!word.charAt(0).match(pattern)) {
+                word = list[Math.floor(list.length * Math.random())]
+            }
+        }
+
+        return word
     }
 
     /**
@@ -102,7 +114,7 @@ class MarkovChain {
     /**
      * Method for generating a Markov chain
      * 
-     * @param {String|null} firstWord The word to start the Markov chain
+     * @param {String|Boolean} firstWord The word to start the Markov chain; if false, strict mode is overriden
      * @param {Number} limit The maximum number of words for the Markov chain
      * @returns {String}
      * 
@@ -110,29 +122,20 @@ class MarkovChain {
      */
     generate(firstWord, limit) {
         limit = limit || this.limit
-        const punctuation = ['.', '?', '!']
         const chain = []
 
+        let strict = firstWord
         while (!firstWord) {
-            firstWord = this._getRandomWord()
+            firstWord = this._getRandomWord(strict)
         }
-        chain.push(this._ucfirst(firstWord))
+        chain.push(firstWord)
         let nextWord = this._getNextWord(firstWord)
         do {
-            let prevWord = chain[chain.length - 1] || false
-            
-            if (prevWord && punctuation.indexOf(prevWord.charAt(prevWord.length - 1)) !== -1) {
-                nextWord = this._ucfirst(nextWord)
-            }
             chain.push(nextWord)
-            if (chain.length < limit) {
-                nextWord = this._getNextWord(nextWord)
-            } else {
-                nextWord = false
-            }
+            nextWord = chain.length < limit ? this._getNextWord(nextWord) : false
         } while (nextWord)
 
-        return chain.join(' ')
+        return this.tokenizer.rebuild(chain)
     }
 }
 

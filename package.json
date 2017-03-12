@@ -1,8 +1,11 @@
 {
   "name": "markov-chain-generator",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "description": "A simple Javascript class for generating Markov Chains",
-  "main": "index.js",
+  "main": "./src/MarkovChain/index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/*",
     "lint": "eslint .",
@@ -15,7 +18,11 @@
   },
   "keywords": [
     "Markov",
-    "Chain"
+    "markov-chain",
+    "markov chain",
+    "markovify",
+    "predictive text",
+    "nlp"
   ],
   "author": "Taylor Growden",
   "license": "MIT",
@@ -27,5 +34,8 @@
     "chai": "^3.5.0",
     "eslint": "^3.15.0",
     "mocha": "^3.2.0"
+  },
+  "dependencies": {
+    "natural": "^0.5.0"
   }
 }
