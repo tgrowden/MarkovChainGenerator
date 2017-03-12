@@ -2,8 +2,9 @@
 'use strict'
 
 const chai  = require('chai')
-const MarkovChain = require('../index')
-const GettysburgAddress = require('./seed')
+const MarkovChain = require('../src/MarkovChain')
+const { GettysburgAddress } = require('../seeds')
+const Tokenizer = require('../src/Tokenizer')
 
 const markovChain = new MarkovChain(GettysburgAddress)
 
@@ -40,6 +41,10 @@ describe('MarkovChain', () => {
         it('should be a string', () => {
             expect(markovChain._getRandomWord()).to.be.string
         })
+
+        it('should return an uppercase word by default', () => {
+            expect(markovChain._getRandomWord().charAt(0)).to.match(/[A-Z]/)
+        })
     })
 
     describe('_ucfirst()', () => {
@@ -64,5 +69,26 @@ describe('MarkovChain', () => {
             expect(string.split(' ')[0]).to.equal('Years')
         })
     })
+})
 
+describe('Tokenizer', () => {
+    describe('tokenize()', () => {
+        it('should create an array of strings', () => {
+            const tokenArray = Tokenizer.tokenize(GettysburgAddress)
+            expect(tokenArray).to.be.array
+        })
+    })
+
+    describe('rebuild()', () => {
+        it('should return a string when passed a tokenized array', () => {
+            const tokenArray = Tokenizer.tokenize(GettysburgAddress)
+            const rebuiltString = Tokenizer.rebuild(tokenArray)
+            expect(rebuiltString).to.be.string
+        })
+
+        it('should throw an error when passed a variable that is not an array', () => {
+            const rebuild = () => Tokenizer.rebuild(GettysburgAddress)
+            expect(rebuild).to.throw(Error)
+        })
+    })
 })
