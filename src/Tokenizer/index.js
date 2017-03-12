@@ -3,6 +3,31 @@
 class Tokenizer {
 
     /**
+     * Regular expressions dictionary
+     * 
+     * @readonly
+     * @static
+     * 
+     * @memberOf Tokenizer
+     */
+    static get regexp() {
+        return {
+            contractions: {
+                match: /\s('ll|'re|'ve|n't|'s|'m|'d)\b/ig,
+                replace: '$1'
+            },
+            punctuation: {
+                match: /\s([.!?\',:%])/g,
+                replace: '$1'
+            },
+            money: {
+                match: /(\$)\s/g,
+                replace: '$1'
+            }
+        }
+    }
+
+    /**
      * Splits a string into an array of individual tokens
      * 
      * @static
@@ -29,8 +54,10 @@ class Tokenizer {
             throw new Error('Tokenizer can only rebuild an array.')
         }
         let text = tokenizedArray.join(' ')
-        text = text.replace(/\s([.!?\',:%])/g, '$1')
-        text = text.replace(/(\$)\s(\w)/g, '$1$2')
+        for (let regexp in Tokenizer.regexp) {
+            text = text.replace(Tokenizer.regexp[regexp].match, Tokenizer.regexp[regexp].replace)
+        }
+
         return text
     }
 
