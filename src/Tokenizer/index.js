@@ -1,8 +1,5 @@
 'use strict'
 
-const natural = require('natural')
-const _tokenizer = new natural.TreebankWordTokenizer()
-
 class Tokenizer {
 
     /**
@@ -15,7 +12,7 @@ class Tokenizer {
      * @memberOf Tokenizer
      */
     static tokenize(text) {
-        return _tokenizer.tokenize(text)
+        return text.split(' ')
     }
 
     /**
