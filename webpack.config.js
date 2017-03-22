@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
-const buildPath = path.resolve(__dirname, 'docs')
+const buildPath = __dirname
 const nodeModulesPath = path.resolve(__dirname, 'node_modules')
 
 const config = {
